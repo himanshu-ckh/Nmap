@@ -5,7 +5,49 @@ import './App.css';
 
 class App extends Component {
 	state = {
-		map:''
+		map:'',
+		places:[
+          {
+            name:'Burger farm',
+            lat:26.9063,
+            lng:75.7964
+          },
+          {
+            name:'Cafe RJ14',
+            lat:26.9039,
+            lng:75.7947
+          },
+          {
+            name: 'Home Cafe by Mr.Beans',
+            lat:26.9050,
+            lng:75.7941
+          },
+            {
+            name:'Kanha Restaurant Jaipur',
+            lat:26.9123,
+            lng:75.8006
+          },
+          {
+            name:'Hawa Mahal',
+            lat:26.9239,
+            lng:75.8267
+          },
+          {
+            name:'MGF Metropolitan Mall',
+            lat:26.9027,
+            lng:75.7937
+          },
+          {
+            name:'INOX Jaipur - C Scheme / Crystal Palm',
+            lat:26.9034,
+            lng:75.7925
+          },
+          {
+          	name:'Cafe F-32',
+          	lat:26.9075,
+          	lng:75.7956
+          }
+        ]
 	}
 	componentDidMount=()=> {
         // Connect the initMap() function within this class to the global window context,

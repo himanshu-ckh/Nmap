@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import LocationList from './LocationList'
 
 class App extends Component {
 	state = {
@@ -138,8 +137,9 @@ class App extends Component {
 
   render() {
   	var locationlist = this.state.markers.map((mark,index)=>{
-						return(<li key={index} className="elem" value={this.state.query}>{mark.title}</li>)
+						return(<li key={index} id="list_items" value={this.state.query}>{mark.title}</li>)
   	})
+
     return (
       <div className="App">
       <div className="search" id="nav">
@@ -163,5 +163,8 @@ function loadMapJS(src) {
     var script = window.document.createElement("script");
     script.src = src;
     script.async = true;
+    script.onerror = function () {
+        document.write("Error in loading Google Map");
+    };
     ref.parentNode.insertBefore(script, ref);
 }

@@ -11,8 +11,7 @@ body {
 #list{
 	height: 80%;
 }
- .elem
- {
+ #list_items{
  	padding: 10px;
  	cursor: pointer;
  }

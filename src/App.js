@@ -3,161 +3,154 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import LocationList from './LocationList'
 
 class App extends Component {
 	state = {
 		map:'',
 		markers:[],
 		infowindow:'',
-		places:[
+		query:'',
+		Locations:[
           {
-            name:'Burger farm',
+            name:'Flechazo',
             type:'Restaurant',
-            lat:26.9063,
-            lng:75.7964
+            lat:12.9743,
+            lng:77.6974
           },
           {
-            name:'Cafe RJ14',
+            name:'Truffles',
             type:'Restaurant',
-            lat:26.9039,
-            lng:75.7947
+            lat:12.9334267140,
+            lng:77.6143838838
           },
           {
-            name:'Laxmi Narayan Temple',
-            type:'Temple',
-            lat:26.8925,
-            lng:75.8153
-          },
-          {
-            name:'World Trade Park',
-            type:'Shopping Mall',
-            lat:26.8925,
-            lng:75.8153
-          },
-          {
-            name: 'Home Cafe by Mr.Beans',
+            name:'The Black Pearl',
             type:'Restaurant',
-            lat:26.8538,
-            lng:75.8052
+            lat:12.9345,
+            lng:77.6160
           },
-            {
-            name:'Kanha Restaurant Jaipur',
+          {
+            name:'Big Pitcher',
             type:'Restaurant',
-            lat:26.9123,
-            lng:75.8006
+            lat:12.9602,
+            lng:77.6469
           },
           {
-            name:'Hawa Mahal',
-            type:'Tourist Place',
-            lat:26.9239,
-            lng:75.8267
-          },
-          {
-            name:'MGF Metropolitan Mall',
-            type:'Shopping Mall',
-            lat:26.9027,
-            lng:75.7937
-          },
-          {
-            name:'INOX Jaipur - C Scheme / Crystal Palm',
-            type:'Shopping Mall',
-            lat:26.9034,
-            lng:75.7925
-          },
-          {
-          	name:'Cafe F-32',
-          	type:'Restaurant',
-          	lat:26.9075,
-          	lng:75.7956
+            name:'The Hole In the Wall Cafe',
+            type:'Restaurant',
+            lat:12.9346,
+            lng:77.6255
           }
         ]
 	}
 
-	/*adapted from http://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/*/
+	/*adapted from http://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/ ------> add map async*/
 	componentDidMount=()=> {
-        // Connect the initMap() function within this class to the global window context,
-        // so Google Maps can invoke it
         window.initMap = this.initMap;
-        // Asynchronously load the Google Maps script, passing in the callback reference
         loadMapJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyCPi0o_tjNjKYYDe_6nYg82r0leI7kKlOE&callback=initMap')
     }
-    //Initializtion of Map
+    /*Init Map*/
    initMap=()=> {
-    //Constructor creates a new map - only center and zoom are required
-      var map = new google.maps.Map(document.getElementById('map'),{
-            center: {lat: 26.9123, lng: 75.8006},
-            zoom: 13
-      });
+    /*New map is created*/
+    var map = (document.getElementById('map'));
+    map.style.height = window.innerHeight + "px";
+      map = new google.maps.Map(map, {
+            center: {lat: 12.9699177648, lng: 77.6473036408},
+            zoom: 12
+        });
       this.setState({
         map:map
       })
-     //Setting the bounds of the Map(It will autozoom and pan itself depending on screen size)
-     var bounds  = new google.maps.LatLngBounds();
      var allLocations=[];
-      this.state.places.forEach(loc=>{
+      this.state.Locations.forEach(loc=>{
          var  marker = new google.maps.Marker({
           position:{lat: loc.lat, lng: loc.lng},
           map:map,
-          title:loc.name,
+          title:loc.name + ", "+ loc.type,
           animation:window.google.maps.Animation.DROP
-        }) 
+        })
          allLocations.push(marker);
+         /*Add event listener to the marker to open info window*/
         google.maps.event.addListener(marker,'click',()=> {
          this.openInfoWindow(marker);
         })
     })
+      /*adapted from https://codepen.io/alexgill/pen/NqjMma ----> to reset the center and decrease the zoom size so that every marker is in the view*/
+      	window.onresize = function() {
+  		var currCenter = map.getCenter();
+  		google.maps.event.trigger(map, 'resize');
+  		map.setCenter(currCenter)
+  		map.setZoom(11);
+	};
       var infowindow = new google.maps.InfoWindow({});
       this.setState({
         infowindow:infowindow
       })
+      this.setState({
+      	markers:allLocations
+      })
       }
 
       openInfoWindow=(marker)=>{
+      	/*Add animation of bounce once the marker is clicked*/
          marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-          marker.setAnimation(null);
-        }, 3000);
-         var clientId = 'KM55HQZ3LWIOEHRQK2CT4IK0IYITFJ5LPCFHJO1G20OGPUMR'
-         var clientSecret = 'MRHPXNTMHJHZUPXY5Z0JNWSYMOWM3DXWNRF2M3GCJK2EXRAK'
-         var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng();
-         this.state.infowindow.setContent("Loading Data..")
+         /*client Id as provided by foursquare*/
+         var cId = 'KM55HQZ3LWIOEHRQK2CT4IK0IYITFJ5LPCFHJO1G20OGPUMR'
+         /*client secret as provided by foursquare*/
+         var cSecret = 'MRHPXNTMHJHZUPXY5Z0JNWSYMOWM3DXWNRF2M3GCJK2EXRAK'
+         var url = "https://api.foursquare.com/v2/venues/search?client_id=" + cId + "&client_secret=" + cSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng();
          fetch(url)
           .then((res)=>{
             if(res.status !==200)
             {
-              this.state.infowindow.setContent('Error in fetching data');
+              this.state.infowindow.setContent('Try again after some time now the data is not acailable');
               return;
             }
+            /*https://developer.mozilla.org/en-US/docs/Web/API/Body/json ----> get response and add the details in the info window*/
             res.json()
             .then((data)=>{
-              var json=data.response.venues[0];
-
-              fetch("https://api.foursquare.com/v2/venues/"+json.id+"/?client_id="+clientId+"&client_secret="+clientSecret+"&v=20180516")
+              var first_response=data.response.venues[0];
+              fetch("https://api.foursquare.com/v2/venues/"+first_response.id+"/?client_id="+cId+"&client_secret="+cSecret+"&v=20180516")
                 .then((resp)=>{
                   resp.json()
                     .then(data=>{
-                      var d = data.response.venue;
-                       var tipCount = 'Number of Tips: ' + d.stats.tipcount + '<br>';
-                       var address = 'Address: ' + d.location.formattedAddress[0] + '<br>';
-                      this.state.infowindow.setContent(tipCount + address)
-
+                      var resp= data.response.venue;
+                       var name = resp.name;
+                       console.log(resp);
+                       var addressline1 = resp.location.formattedAddress[0];
+                       var addressline2 = resp.location.formattedAddress[1]? resp.location.formattedAddress[1] : " " ;
+                       var addressline3 = resp.location.formattedAddress[2]? resp.location.formattedAddress[2] : " ";
+                       var rating = resp.rating? resp.rating : "Rating not available right now" ;
+                       var pricing = resp.price.message? resp.price.message : "Price message not available right now";
+                       var contact = resp.contact.phone ? resp.contact.phone : "Contact details not available right now";
+                       /*target  = _blank to open in a new tab as mentioned by project reviewer in Portfolio project*/
+                       var more_info = '<a href="https://foursquare.com/v/'+ resp.id +'"target="_blank"><b>More Info</b></a>' + '<br>';
+                      this.state.infowindow.setContent('<b>' + "Address: " + '</b>' + addressline1 + ', '+ addressline2 + ',' + addressline3 + '<br>' + '<b>' +  "Rating: " + '</b>' + rating  +  '<br>' + '<b>' + "Pricing Range: " + '</b>' + pricing + '<br>' + '<b>' +  "Contact Info: " + '</b>' + contact + '<br>' + more_info)
+                      })
                     })
                 })
-              //infowindow.setContent(json.name)
             })
-          })
-
-         this.state.infowindow.open(this.state.map,marker);
+         this.state.infowindow.open(this.state.map, marker);
+         /*set the marker animation to null*/
+         marker.setAnimation(null);
       }
 
   render() {
+  	var locationlist = this.state.markers.map((mark,index)=>{
+						return(<li key={index} className="elem" value={this.state.query}>{mark.title}</li>)
+  	})
     return (
       <div className="App">
-      	<div className="map-container" role="application" tabIndex="-1">
-      {/*add the map with height of window.innerHeight*/}
-      		<div id="map" style={{height: window.innerHeight + "px",}}>
+      <div className="search" id="nav">
+                <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter"
+                       value={this.state.query} onChange={this.filterLocations}/>
+                <ol>
+                    {locationlist}
+                </ol>
+                </div>
+      		<div id="map" role="application" tabIndex="-1">
       		</div>
-      	</div>
       </div>
     );
   }

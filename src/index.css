@@ -15,3 +15,7 @@ body {
  	padding: 10px;
  	cursor: pointer;
  }
+ .search_field{
+ 	margin-left: 20px;
+	padding: 10px;
+ }

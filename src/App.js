@@ -143,7 +143,7 @@ class App extends Component {
     return (
       <div className="App">
       <div className="search" id="nav">
-                <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter"
+                <input type="text" placeholder="Filter" role="search" aria-label="search filter" id="search" className="search_field"
                        value={this.state.query} onChange={this.filterLocations}/>
                 <ol>
                     {locationlist}

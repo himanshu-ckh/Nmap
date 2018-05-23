@@ -3,19 +3,40 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+ul {
+	list-style-type: none;
+}
 #nav{
-	width: 300px;
+	width: 250px;
 	float: right;
 	padding: 10px;
 }
 #list{
-	height: 80%;
+	height: 100%;
 }
  #list_items{
- 	padding: 10px;
+ 	padding-top: 10px;
+ 	padding-right: 10px;
  	cursor: pointer;
+ 	font-weight: bold;
  }
  .search_field{
  	margin-left: 20px;
 	padding: 10px;
+	font-weight: bold;
+ }
+ @media screen and (max-width: 580px) {
+ 	#nav{
+ 		max-width: 140px;
+ 	}
+ }
+
+@media screen and (max-width: 480px) {
+ 	#nav{
+ 		max-width: 100px;
+ 	}
+ 	#map{
+ 		max-width: 300px;
+ 		max-height: 100%;
+ 	}
  }

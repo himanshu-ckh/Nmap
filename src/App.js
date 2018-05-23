@@ -21,6 +21,12 @@ class App extends Component {
             lng:77.6974
           },
           {
+            name:'Toit Brew',
+            type:'Pub',
+            lat:12.9792514,
+            lng:77.6405569
+          },
+          {
             name:'Brew Meister',
             type:'Restaurant',
             lat:12.9263987633,
@@ -122,7 +128,7 @@ class App extends Component {
 	};
 
 	  /*creating info window and set the state*/
-      var infowindow = new google.maps.InfoWindow({ maxWidth: 120 });
+      var infowindow = new google.maps.InfoWindow({ maxWidth: 150 });
       this.setState({
         infowindow:infowindow
       })
@@ -191,6 +197,18 @@ class App extends Component {
       	this.state.infowindow.close();
       	/*set the query to lower case*/
       	let q = query.toLowerCase();
+      	/*filter the list items so that it will only display the content which match the query*/
+      	var filter = query.toUpperCase();
+      	var ul = document.getElementById("ulist")
+      	var li = ul.getElementsByTagName("li");
+    		for (var i = 0; i < li.length; i++) {
+        		var a = li[i].getElementsByTagName("a")[0];
+        			if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            			li[i].style.display = "";
+        			} else {
+            			li[i].style.display = "none";
+        			}
+    	}
       	/*set the query to the value which is typed in the filter box*/
       	this.setState({query:q})
       	var loca=[];
@@ -211,21 +229,17 @@ class App extends Component {
       	})
     }
 
-    toggleclass = () =>{
-    }
-
-
   render() {
   	/* this will return the location list*/
   	var allLoc = this.state.markers.map((mark,index)=>{
-						return(<li key={index} id="list_items" value={this.state.query} onClick={this.openInfoWindow.bind(this,mark)}>{mark.title}</li>)
+						return(<li key={index} id="list_items" value={this.state.query} onClick={this.openInfoWindow.bind(this,mark)}><a href="#">{mark.title}</a></li>)
   	})
 
     return (
       <div className="App">
       <nav className="search" id="nav">
                 <input type="text" placeholder="Search..." role="search" aria-label="search filter" value={this.state.query} className="search_field" onChange={event =>this.filterPlaces(event.target.value)}/>
-                <ul role="navigation" aria-label="placeList">
+                <ul role="navigation" aria-label="placeList" id="ulist">
                     {allLoc}
                 </ul>
                 </nav>

@@ -15,6 +15,7 @@ ul {
 	height: 100%;
 }
  #list_items{
+ 	padding-bottom: 10px;
  	padding-top: 10px;
  	padding-right: 10px;
  	cursor: pointer;

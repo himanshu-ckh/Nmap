@@ -55,6 +55,7 @@ nav a {
  }
 .toggle {
   display: block;
+  tab-index:0;
   background-color: #254441;
   padding: 0 20px;
   color: #FFF;

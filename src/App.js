@@ -168,6 +168,11 @@ class App extends Component {
         /*Add animation of bounce once the marker is clicked*/
          marker.setAnimation(window.google.maps.Animation.BOUNCE);
 
+         /*get the lat lng of the marker*/
+         var latlng = marker.getPosition();
+         /*set the marker as the center of the map*/
+         this.state.map.setCenter(latlng);
+
          /*client Id as provided by foursquare*/
          var cId = 'KM55HQZ3LWIOEHRQK2CT4IK0IYITFJ5LPCFHJO1G20OGPUMR'
          /*client secret as provided by foursquare*/

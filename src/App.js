@@ -168,6 +168,11 @@ class App extends Component {
         /*Add animation of bounce once the marker is clicked*/
          marker.setAnimation(window.google.maps.Animation.BOUNCE);
 
+         /*set the marker animation to null after 3sec*/
+         setTimeout(function() {
+          marker.setAnimation(null)
+          }, 3000);
+
          /*get the lat lng of the marker*/
          var latlng = marker.getPosition();
          /*set the marker as the center of the map*/
@@ -222,10 +227,8 @@ class App extends Component {
                     })
                 })
             })
-          /*set infowindoe to open for thar particula marker*/
+          /*set infowindow to open for thar particular marker*/
          this.state.infowindow.open(this.state.map, marker);
-         /*set the marker animation to null*/
-         marker.setAnimation(null);
       }
 
       /*filterPlaces function to filter the places when we type something in the filter box*/

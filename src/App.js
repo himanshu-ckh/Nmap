@@ -1,7 +1,6 @@
-/*added to remove error 'google' is not defined ----- https://github.com/tomchentw/react-google-maps/issues/434*/
+/*added global google to remove error 'google' is not defined ----- https://github.com/tomchentw/react-google-maps/issues/434*/
 /*global google*/
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -127,9 +126,8 @@ class App extends Component {
   			map.panToBounds(bounds);
 	};
 
-	  /*creating info window and set the state*/
-	  /*set the max width of the infowindow also*/
-      var infowindow = new google.maps.InfoWindow({ maxWidth: 150 });
+	  /*creating info window and set the state -------- set the max width of the infowindow also*/
+      var infowindow = new google.maps.InfoWindow({ maxWidth: 120 });
       this.setState({
         infowindow:infowindow
       })

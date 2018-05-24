@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+
   state = {
     map:'',
     markers:[],
@@ -146,8 +147,9 @@ class App extends Component {
         infowindow:infowindow
       })
 
+      /*add event listener to the close button in the marker to close the info window and set the map center again*/
       google.maps.event.addListener(infowindow, 'closeclick', ()=> {
-           map.setCenter({lat:12.9602, lng:77.6469});
+          map.setCenter({lat:12.9602, lng:77.6469});
           infowindow.close();
         });
 

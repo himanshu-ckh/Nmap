@@ -3,41 +3,65 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-ul {
-	list-style-type: none;
+nav {
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
 }
-#nav{
-	width: 250px;
-	float: right;
-	padding: 10px;
+nav:after {
+  content: "";
+  display: table;
+  clear: both;
 }
-#list{
-	height: 100%;
+nav ul {
+  float: center;
+  padding: 0;
+  margin: 0;
 }
- #list_items{
- 	padding-bottom: 10px;
- 	padding-top: 10px;
- 	padding-right: 10px;
- 	cursor: pointer;
- 	font-weight: bold;
+nav ul li {
+  margin: 0px;
+  float: center;
+  background-color: #f2f2f2;
+}
+nav a {
+  display: block;
+  color: #000;
+}
+.toggle {
+  display: none;
+}
+#drop {
+  display: none;
+}
+#list_items {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
  }
- .search_field{
- 	margin-left: 20px;
-	padding: 10px;
-	font-weight: bold;
- }
- @media screen and (max-width: 580px) {
- 	#nav{
- 		max-width: 140px;
- 	}
+ .search_field {
+  font-weight: bold;
  }
 
-@media screen and (max-width: 480px) {
- 	#nav{
- 		max-width: 100px;
- 	}
- 	#map{
- 		max-width: 300px;
- 		max-height: 100%;
- 	}
- }
+ /* ============Responsive===========*/
+
+ @media all and (max-width : 768px) {
+.toggle + a,
+ .menu { display: none; }
+.toggle {
+  display: block;
+  background-color: #254441;
+  padding: 0 20px;
+  color: #FFF;
+  font-size: 20px;
+  line-height: 60px;
+}
+[id^=drop]:checked + ul {
+  display: block;
+}
+nav ul li {
+  display: block;
+  width: 100%;
+}
+}

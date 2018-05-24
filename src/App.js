@@ -10,7 +10,6 @@ class App extends Component {
 		markers:[],
 		infowindow:'',
 		query:'',
-		initialMarkers:'',
 		filteredLocations: [],
 		isOpen:'',
 		Locations:[
@@ -238,8 +237,11 @@ class App extends Component {
     return (
       <div className="App">
       <nav className="search" id="nav">
-                <input type="text" placeholder="Search..." role="search" aria-label="search filter" value={this.state.query} className="search_field" onChange={event =>this.filterPlaces(event.target.value)}/>
-                <ul role="navigation" aria-label="placeList" id="ulist">
+  		<label htmlFor="drop" className="toggle">Menu</label>
+  			<input type="checkbox" id="drop" />
+  			<ul role="navigation" aria-label="placeList" id="ulist" className="menu">
+  			{/*added tab index of 1 so that focus directly goes to the search*/}
+                <input type="text" placeholder="Search..." role="search" aria-label="search filter" value={this.state.query} className="search_field" onChange={event =>this.filterPlaces(event.target.value)} tabIndex="1"/>
                     {allLoc}
                 </ul>
                 </nav>

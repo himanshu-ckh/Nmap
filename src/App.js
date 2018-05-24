@@ -11,7 +11,6 @@ class App extends Component {
 		infowindow:'',
 		query:'',
 		filteredLocations: [],
-		isOpen:'',
 		Locations:[
           {
             name:'Flechazo',
@@ -112,21 +111,24 @@ class App extends Component {
         })
     })
 
+      /*set the state for markers and set the filteresLocation to allLocation which the used further*/*
       this.setState({
       	markers:allLocations,
       	filteredLocations:allLocations
       })
 
       /*adapted from https://codepen.io/alexgill/pen/NqjMma ----> to reset the center and decrease the zoom size so that every marker is in the view*/
-      	window.onresize = function() {
+      	window.onresize = () =>{
       	/*get the current center of the map*/
   			var currCenter = map.getCenter();
   			google.maps.event.trigger(map, 'resize');
   			map.setCenter(currCenter)
   			map.fitBounds(bounds);
+  			map.panToBounds(bounds);
 	};
 
 	  /*creating info window and set the state*/
+	  /*set the max width of the infowindow also*/
       var infowindow = new google.maps.InfoWindow({ maxWidth: 150 });
       this.setState({
         infowindow:infowindow
@@ -168,15 +170,18 @@ class App extends Component {
                     .then(data=>{
                     	/*resp is where all the content is stored for a particular location*/
                       var resp= data.response.venue;
-                      console.log(resp)
                       /*Get the formatted address of the loacion*/
                        var addressline1 = resp.location.formattedAddress[0];
                        /*if any value is not present in the box it will be handeled accordingly*/
                        var addressline2 = resp.location.formattedAddress[1]? resp.location.formattedAddress[1] : " " ;
                        var addressline3 = resp.location.formattedAddress[2]? resp.location.formattedAddress[2] : " " ;
+                       /*get the rating of the location*/
                        var rating = resp.rating? resp.rating : "Rating not available right now :(" ;
+                       /*get the pricing range of the location*/
                        var pricing = resp.price? resp.price.message? resp.price.message : "Price message not available right now :(" : "Price is not available right now :(" ;
+                       /*get the contact info of the location*/
                        var contact = resp.contact.phone ? resp.contact.phone : "Contact details not available right now :(" ;
+                       /*To get more info from foursquare*/
                        /*target  = _blank to open in a new tab as mentioned by project reviewer in Portfolio project*/
                        var more_info = '<a href="https://foursquare.com/v/'+ resp.id +'"target="_blank"><b>More Info</b></a>' + '<br>';
                        /*set the content of the marker*/
@@ -196,7 +201,7 @@ class App extends Component {
       	this.state.infowindow.close();
       	/*set the query to lower case*/
       	let q = query.toLowerCase();
-      	/*filter the list items so that it will only display the content which match the query*/
+      	/*filter the list items so that it will only display the list items which match the query*/
       	var filter = query.toUpperCase();
       	var ul = document.getElementById("ulist")
       	var li = ul.getElementsByTagName("li");
@@ -238,7 +243,7 @@ class App extends Component {
       <div className="App">
       <nav className="search" id="nav">
   		<label htmlFor="drop" className="toggle">Menu</label>
-  			<input type="checkbox" id="drop" />
+  			<input type="checkbox" id="drop"/>
   			<ul role="navigation" aria-label="placeList" id="ulist" className="menu">
   			{/*added tab index of 1 so that focus directly goes to the search*/}
                 <input type="text" placeholder="Search..." role="search" aria-label="search filter" value={this.state.query} className="search_field" onChange={event =>this.filterPlaces(event.target.value)} tabIndex="1"/>

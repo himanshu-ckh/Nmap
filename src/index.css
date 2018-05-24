@@ -42,13 +42,16 @@ nav a {
  }
  .search_field {
   font-weight: bold;
+  height: 20px;
  }
 
  /* ============Responsive===========*/
 
  @media all and (max-width : 768px) {
 .toggle + a,
- .menu { display: none; }
+ .menu {
+  display: none;
+ }
 .toggle {
   display: block;
   background-color: #254441;

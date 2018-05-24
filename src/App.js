@@ -77,7 +77,10 @@ class App extends Component {
 
   /*adapted from http://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/ ------> add map async*/
   componentDidMount=()=> {
+        // Connect the initMap() function within this class to the global window context,
+        // so Google Maps can invoke it
         window.initMap = this.initMap;
+        // Asynchronously load the Google Maps script, passing in the callback reference
         /*load the map with the API key provided by the google maps*/
         loadMapJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyCPi0o_tjNjKYYDe_6nYg82r0leI7kKlOE&callback=initMap')
     }

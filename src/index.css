@@ -38,6 +38,7 @@ nav a {
   padding-top: 10px;
   padding-right: 10px;
   cursor: pointer;
+  height: 10px;
   font-weight: bold;
  }
  .search_field {

@@ -100,6 +100,8 @@ class App extends Component {
           /*set animation of markers to drop*/
           animation:window.google.maps.Animation.DROP
         })
+         /*fit the bounds of the map so that every marker is shown*/
+         map.fitBounds(bounds);
          /*push the marker to the array of markers*/
          allLocations.push(marker);
          /*extend the boundaries of the map for each marker*/
@@ -142,6 +144,7 @@ class App extends Component {
       openInfoWindow=(marker)=>{
       	/*Add animation of bounce once the marker is clicked*/
          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+
          /*client Id as provided by foursquare*/
          var cId = 'KM55HQZ3LWIOEHRQK2CT4IK0IYITFJ5LPCFHJO1G20OGPUMR'
          /*client secret as provided by foursquare*/

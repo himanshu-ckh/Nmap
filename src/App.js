@@ -195,9 +195,12 @@ class App extends Component {
                       /*resp is where all the content is stored for a particular location*/
                       var resp= data.response.venue;
                       /*Get the formatted address of the loacion*/
+                        /*get the 1st address line*/
                        var addressline1 = resp.location.formattedAddress[0];
                        /*if any value is not present in the box it will be handeled accordingly*/
+                       /*get the 2nd address line*/
                        var addressline2 = resp.location.formattedAddress[1]? resp.location.formattedAddress[1] : " " ;
+                       /*get the 3rd address line*/
                        var addressline3 = resp.location.formattedAddress[2]? resp.location.formattedAddress[2] : " " ;
                        /*get the rating of the location*/
                        var rating = resp.rating? resp.rating : "Rating not available right now :(" ;
@@ -227,8 +230,11 @@ class App extends Component {
         let q = query.toLowerCase();
         /*filter the list items so that it will only display the list items which match the query*/
         var filter = query.toUpperCase();
+        /*get the list*/
         var ul = document.getElementById("ulist")
+        /*get the list items*/
         var li = ul.getElementsByTagName("li");
+        /*from aa the list items show only those items which match the query*/
         for (var i = 0; i < li.length; i++) {
             var a = li[i].getElementsByTagName("a")[0];
               if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {

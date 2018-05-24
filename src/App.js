@@ -278,8 +278,8 @@ class App extends Component {
     })
 
     return (
-      <div className="App">
-      <nav className="search" id="nav">
+      <div className="App" role="main">
+      <nav className="search" id="nav" role="navigation">
       <label htmlFor="drop" className="toggle">Menu</label>
         <input type="checkbox" id="drop"/>
           <ul role="navigation" aria-label="placeList" id="ulist" className="menu">

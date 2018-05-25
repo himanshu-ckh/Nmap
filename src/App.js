@@ -201,6 +201,12 @@ class App extends Component {
               /*fetch the url as mentioned in the foursquare api to display the result*/
               fetch("https://api.foursquare.com/v2/venues/"+first_response.id+"/?client_id="+cId+"&client_secret="+cSecret+"&v=20180516")
                 .then((resp)=>{
+                  /* if error in fetching the url set the content accordingly*/
+                  if(resp.status !==200)
+                  {
+                    this.state.infowindow.setContent('Try again after some time, :( now the data is not acailable');
+                    return;
+                  }
                   resp.json()
                     .then(data=>{
                       /*resp is where all the content is stored for a particular location*/
@@ -227,9 +233,6 @@ class App extends Component {
                       })
                     })
                 })
-            })
-            .catch(function(error) {
-              this.state.infowindow.setContent("Foursquare API dosent load");
             })
           /*set infowindow to open for thar particular marker*/
          this.state.infowindow.open(this.state.map, marker);
@@ -278,7 +281,7 @@ class App extends Component {
   render =() => {
     return (
       <div className="App" role="main">
-      {/*Added new component beacuse its the best feature of react which makes it easy to use*/}
+      {/*---Added new component beacuse its the best feature of react which makes it easy to use---*/}
       <Listview markers={this.state.markers} openInfoWindow={this.openInfoWindow} filterPlaces={this.filterPlaces} query={this.state.query} />
           <div id="map" role="application" tabIndex="-1">
           </div>

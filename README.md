@@ -16,6 +16,6 @@
 1. Clone the repo.
 2. npm run build.
 3. cd build
-4. python -m http.server 4000
+4. python -m SimpleHTTPServer 4046
 
-It Will start the app at http://localhost:4000
+It Will start the app at http://localhost:4046

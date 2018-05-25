@@ -9,3 +9,13 @@
 1. To start the project download the project and 'cd' into the project folder.
 2. Run 'npm intall' in the cmd to download the dependencies.
 3. To run the app type the command 'npm start'.
+
+4. /* Notes that the service workers for this app will only cache the site when it is in production mode.
+
+# Run in production mode
+1. Clone the repo.
+2. npm run build.
+3. cd build
+4. python -m http.server 4000
+
+It Will start the app at http://localhost:4000

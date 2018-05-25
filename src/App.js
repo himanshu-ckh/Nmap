@@ -23,12 +23,6 @@ class App extends Component {
             lng:77.6026
           },
           {
-            name:'Arbor Brewing Company',
-            type:'Restaurant',
-            lat:12.9701,
-            lng:77.6109
-          },
-          {
             name:'Toit Brew',
             type:'Pub',
             lat:12.9792514,
@@ -47,28 +41,10 @@ class App extends Component {
             lng:77.6156990491299
           },
           {
-            name:'Truffles',
-            type:'Restaurant',
-            lat:12.9334267140,
-            lng:77.6143838838
-          },
-          {
-            name:'The Black Pearl',
-            type:'Restaurant',
-            lat:12.9345,
-            lng:77.6160
-          },
-          {
             name:'Big Pitcher',
             type:'Restaurant',
             lat:12.9602,
             lng:77.6469
-          },
-          {
-            name:'The Hole In the Wall Cafe',
-            type:'Restaurant',
-            lat:12.9346,
-            lng:77.6255
           }
         ]
   }

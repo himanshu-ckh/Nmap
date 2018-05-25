@@ -10,7 +10,7 @@
 2. Run 'npm intall' in the cmd to download the dependencies.
 3. To run the app type the command 'npm start'.
 
-4. /* Notes that the service workers for this app will only cache the site when it is in production mode.
+4. Note: The service workers for this app will only cache the site when it is in production mode.
 
 # Run in production mode
 1. Clone the repo.

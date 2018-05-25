@@ -2,14 +2,15 @@
 /*global google*/
 import React, { Component } from 'react';
 import './App.css';
+import Listview from './Listview'
 
 class App extends Component {
 
   state = {
     map:'',
     markers:[],
-    infowindow:'',
     query:'',
+    infowindow:'',
     filteredLocations: [],
     Locations:[
           {
@@ -168,10 +169,10 @@ class App extends Component {
         /*Add animation of bounce once the marker is clicked*/
          marker.setAnimation(window.google.maps.Animation.BOUNCE);
 
-         /*set the marker animation to null after 3sec*/
+         /*set the marker animation to null after 1400ms so that it bounce for 2 times*/
          setTimeout(function() {
           marker.setAnimation(null)
-          }, 3000);
+          }, 1400);
 
          /*get the lat lng of the marker*/
          var latlng = marker.getPosition();
@@ -227,6 +228,9 @@ class App extends Component {
                     })
                 })
             })
+            .catch(function(error) {
+              this.state.infowindow.setContent("Foursquare API dosent load");
+            })
           /*set infowindow to open for thar particular marker*/
          this.state.infowindow.open(this.state.map, marker);
       }
@@ -271,23 +275,11 @@ class App extends Component {
         })
     }
 
-  render() {
-    /* this will return the location list*/
-    var allLoc = this.state.markers.map((mark,index)=>{
-            return(<li key={index} id="list_items" value={this.state.query} onClick={this.openInfoWindow.bind(this,mark)}><a href="#">{mark.title}</a></li>)
-    })
-
+  render =() => {
     return (
       <div className="App" role="main">
-      <nav className="search" id="nav" role="navigation">
-      <label htmlFor="drop" className="toggle">Menu</label>
-        <input type="checkbox" id="drop"/>
-          <ul role="navigation" aria-label="placeList" id="ulist" className="menu">
-            {/*added tab index of 1 so that focus directly goes to the search*/}
-                <input type="text" placeholder="Search..." role="search" aria-label="search filter" value={this.state.query} className="search_field" onChange={event =>this.filterPlaces(event.target.value)} tabIndex="1"/>
-                    {allLoc}
-          </ul>
-      </nav>
+      {/*Added new component beacuse its the best feature of react which makes it easy to use*/}
+      <Listview markers={this.state.markers} openInfoWindow={this.openInfoWindow} filterPlaces={this.filterPlaces} query={this.state.query} />
           <div id="map" role="application" tabIndex="-1">
           </div>
       </div>

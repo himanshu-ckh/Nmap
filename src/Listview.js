@@ -5,7 +5,7 @@ render = ()=> {
 	/* this will return the location list*/
     var allLoc = this.props.markers.map((mark,index)=>{
     	/*added class instead of id */
-            return(<li key={index} class="list_items" value={this.props.query} onClick={this.props.openInfoWindow.bind(this,mark)}><a href="#">{mark.title}</a></li>)
+            return(<li key={index} className="list_items" value={this.props.query} onClick={this.props.openInfoWindow.bind(this,mark)}><a href="#">{mark.title}</a></li>)
     })
 	return (
 		<div>

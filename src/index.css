@@ -33,7 +33,7 @@ nav a {
 #drop {
   display: none;
 }
-#list_items {
+.list_items {
   padding-bottom: 10px;
   padding-top: 10px;
   padding-right: 10px;
